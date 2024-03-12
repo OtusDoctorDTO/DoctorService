@@ -8,12 +8,7 @@ namespace DoctorService.API.Controllers
     [Route("api/[controller]")]
     public class DoctorController : ControllerBase
     {
-        private readonly DoctorService _doctorService;
-
-        public DoctorController(DoctorService doctorService)
-        {
-            _doctorService = doctorService;
-        }
+        
 
     }
 }

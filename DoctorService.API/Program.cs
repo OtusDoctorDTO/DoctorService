@@ -19,11 +19,11 @@ namespace DoctorService.API
                 {
                     webBuilder.ConfigureServices((context, services) =>
                     {
-                        // Configure services
+                        
                     });
                     webBuilder.Configure((app) =>
                     {
-                        // Configure middleware
+                        
                     });
                 });
     }
