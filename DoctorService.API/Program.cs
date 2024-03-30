@@ -17,14 +17,7 @@ namespace DoctorService.API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.ConfigureServices((context, services) =>
-                    {
-                        
-                    });
-                    webBuilder.Configure((app) =>
-                    {
-                        
-                    });
+                    webBuilder.UseStartup<Startup>();
                 });
     }
 }

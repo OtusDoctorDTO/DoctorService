@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DoctorService.Domain.Services
 {
-    public class AppointmentService
+    public class IAppointmentService
     {
         private readonly List<Appointment> _appointments;
 
-        public AppointmentService()
+        public IAppointmentService()
         {
             _appointments = new List<Appointment>();
         }
