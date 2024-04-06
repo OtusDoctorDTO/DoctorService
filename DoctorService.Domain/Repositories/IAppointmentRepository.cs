@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using DoctorService.Domain.Entities;
+﻿using DoctorService.Domain.Entities;
 
 namespace DoctorService.Domain.Repositories
 {

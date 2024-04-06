@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DoctorService.Domain.Entities
+﻿namespace DoctorService.Domain.Entities
 {
     public class Appointment
     {

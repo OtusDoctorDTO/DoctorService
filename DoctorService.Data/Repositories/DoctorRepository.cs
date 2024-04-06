@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DoctorService.Domain.Entities;
+﻿using DoctorService.Domain.Entities;
 using DoctorService.Domain.Repositories;
 using DoctorService.Data.Context;
 
