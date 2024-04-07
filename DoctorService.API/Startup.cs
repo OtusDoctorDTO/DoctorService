@@ -1,6 +1,12 @@
 ﻿using DoctorService.API.Consumer;
+using DoctorService.Data.Context;
+using DoctorService.Data.Repositories;
+using DoctorService.Domain.Repositories;
+using DoctorService.Domain.Services;
 using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Transactions;
 
 namespace DoctorService.API
 {
@@ -17,7 +23,6 @@ namespace DoctorService.API
         {
             services.AddControllers();
 
-            // Register the Swagger generator
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DoctorService API", Version = "v1" });
@@ -25,6 +30,8 @@ namespace DoctorService.API
 
             services.AddMassTransit(config =>
             {
+                config.AddConsumer<DoctorConsumer>();
+
                 var rabbitMqSettings = Configuration.GetSection("RabbitMQ").Get<RabbitMqSettings>();
 
                 config.UsingRabbitMq((ctx, cfg) =>
@@ -34,21 +41,37 @@ namespace DoctorService.API
                         h.Username(rabbitMqSettings.UserName);
                         h.Password(rabbitMqSettings.Password);
                     });
+
+                    cfg.UseTransaction(_ =>
+                    {
+                        _.Timeout = TimeSpan.FromSeconds(60);
+                        _.IsolationLevel = IsolationLevel.ReadCommitted;
+                    });
+
+                    cfg.ReceiveEndpoint(new TemporaryEndpointDefinition(), e =>
+                    {
+                        e.ConfigureConsumer<DoctorConsumer>(ctx);
+                    });
+                    cfg.ConfigureEndpoints(ctx);
                 });
 
-                // Add consumers, sagas, etc.
-                config.AddConsumer<MessageConsumer>();
+                config.AddConsumer<DoctorConsumer>();
             });
 
-            // Register consumers, sagas, etc. as scoped services
-            services.AddScoped<MessageConsumer>();
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            if (string.IsNullOrEmpty(connection))
+                throw new ConfigurationException("Не удалось прочитать строку подключения");
+
+            services.AddDbContext<DoctorDbContext>(options => options.UseSqlServer(connection));
+
+            services.AddTransient<IDoctorService, Services.DoctorService>();
+            services.AddTransient<IDoctorRepository, DoctorRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSwagger();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.)
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "DoctorService.API");
