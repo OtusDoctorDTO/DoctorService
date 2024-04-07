@@ -1,7 +1,6 @@
-﻿using DoctorService.API.Helpers;
-using DoctorService.Domain.Entities;
+﻿using DoctorService.Domain.Entities;
 using DoctorService.Domain.Services;
-using HelpersDTO.Doctor.DTO;
+using HelpersDTO.Doctor.DTO.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorService.API.Controllers
@@ -20,37 +19,36 @@ namespace DoctorService.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<DoctorDTO>> GetAllDoctors()
+        public async Task<ActionResult<IEnumerable<DoctorDTO>>> GetAllDoctors()
         {
             try
             {
-                var doctors = _doctorService.GetAllDoctors();
-                var doctorsDTO = doctors.Select(doctor => doctor.ToDoctorDTO()).ToList();
+                var doctors = await _doctorService.GetAllDoctors();
 
-                return Ok(doctorsDTO);
+                return Ok(doctors);
             }
             catch (Exception e)
             {
-                _logger.LogError(e);
+                _logger.LogError(e.Message);
                 return BadRequest("Произошла ошибка");
             }
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Doctor> GetDoctorById(int id)
+        public async Task<ActionResult<Doctor>> GetDoctorById(int id)
         {
             try
             {
-                var doctor = _doctorService.GetDoctorById(id);
+                var doctor = await _doctorService.GetDoctorById(id);
                 if (doctor == null)
                 {
                     return NotFound();
                 }
-                return Ok(doctor.ToDoctorDTO());
+                return Ok(doctor);
             }
             catch (Exception e)
             {
-                _logger.LogError(e);
+                _logger.LogError(e.Message);
                 return BadRequest("Произошла ошибка");
             }
         }
