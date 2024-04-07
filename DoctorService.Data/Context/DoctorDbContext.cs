@@ -7,7 +7,6 @@ namespace DoctorService.Data.Context
     public class DoctorDbContext : DbContext
     {
         public DbSet<Doctor> Doctors { get; set; }
-        public DbSet<Appointment> Appointments { get; set; }
 
         public DoctorDbContext(DbContextOptions<DoctorDbContext> options) : base(options)
         {

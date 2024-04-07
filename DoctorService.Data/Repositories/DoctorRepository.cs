@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using DoctorService.Data.Context;
 using DoctorService.Domain.Entities;
 using DoctorService.Domain.Repositories;
-using DoctorService.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoctorService.Data.Repositories
 {
@@ -15,36 +14,36 @@ namespace DoctorService.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public void AddDoctor(Doctor doctor)
+        public async Task AddDoctor(Doctor doctor)
         {
             _dbContext.Doctors.Add(doctor);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
-        public void UpdateDoctor(Doctor doctor)
+        public async Task UpdateDoctor(Doctor doctor)
         {
             _dbContext.Doctors.Update(doctor);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
-        public void DeleteDoctor(int doctorId)
+        public async Task DeleteDoctor(int doctorId)
         {
-            var doctor = _dbContext.Doctors.Find(doctorId);
+            var doctor = await _dbContext.Doctors.FindAsync(doctorId);
             if (doctor != null)
             {
                 _dbContext.Doctors.Remove(doctor);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
         }
 
-        public Doctor GetDoctorById(int doctorId)
+        public async Task<Doctor?> GetDoctorById(int doctorId)
         {
-            return _dbContext.Doctors.Find(doctorId);
+            return await _dbContext.Doctors.FindAsync(doctorId);
         }
 
-        public List<Doctor> GetAllDoctors()
+        public async Task<List<Doctor>> GetAllDoctors()
         {
-            return _dbContext.Doctors.ToList();
+            return await _dbContext.Doctors.ToListAsync();
         }
     }
 }
