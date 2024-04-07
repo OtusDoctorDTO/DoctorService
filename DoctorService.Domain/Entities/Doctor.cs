@@ -7,11 +7,11 @@
         /// <summary>
         /// Фамилия
         /// </summary>
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
         /// <summary>
         /// Имя
         /// </summary>
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
         /// <summary>
         /// Отчество
         /// </summary>
@@ -20,6 +20,6 @@
         /// <summary>
         /// Специальность
         /// </summary>
-        public string Specialty { get; set; }
+        public string? Specialty { get; set; }
     }
 }

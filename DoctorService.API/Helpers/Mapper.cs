@@ -1,5 +1,6 @@
 ﻿using DoctorService.Domain.Entities;
-using HelpersDTO.Doctor.DTO;
+using HelpersDTO.Base.Models;
+using HelpersDTO.Doctor.DTO.Models;
 
 namespace DoctorService.API.Helpers
 {
@@ -13,11 +14,11 @@ namespace DoctorService.API.Helpers
                 Id = doctor.Id,
                 User = new BaseUserDTO()
                 {
-                    LastName = doctor.LastName,
-                    FirstName = doctor.FirstName,
-                    MiddleName = doctor.MiddleName
+                    LastName = doctor!.LastName ?? "",
+                    FirstName = doctor!.FirstName ?? "",
+                    MiddleName = doctor!.MiddleName ?? ""
                 },
-                Specialty = doctor.Specialty
+                Specialty = doctor!.Specialty
             };
         }
 
@@ -26,11 +27,11 @@ namespace DoctorService.API.Helpers
             if (doctor == null) return null;
             return new Doctor()
             {
-                Id = ,
-                FirstName = doctor.,
-                LastName = ,
-                MiddleName = ,
-                Specialty =
+                Id = doctor.Id,
+                FirstName = doctor.User?.FirstName,
+                LastName = doctor.User?.LastName,
+                MiddleName = doctor.User?.MiddleName,
+                Specialty = doctor.Specialty
             };
         }
     }

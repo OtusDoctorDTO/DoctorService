@@ -1,5 +1,6 @@
 ﻿using DoctorService.Domain.Entities;
 using HelpersDTO.Doctor.DTO;
+using HelpersDTO.Doctor.DTO.Models;
 
 namespace DoctorService.Domain.Services
 {

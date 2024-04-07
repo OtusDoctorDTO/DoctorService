@@ -1,7 +1,7 @@
 ﻿using DoctorService.API.Helpers;
 using DoctorService.Domain.Repositories;
 using DoctorService.Domain.Services;
-using HelpersDTO.Doctor.DTO;
+using HelpersDTO.Doctor.DTO.Models;
 
 namespace DoctorService.API.Services
 {
@@ -18,10 +18,10 @@ namespace DoctorService.API.Services
             _repository.AddDoctor(doctorDB);
         }
 
-        public async Task<IEnumerable<DoctorDTO>> GetAllDoctors()
+        public async Task<IEnumerable<DoctorDTO>?> GetAllDoctors()
         {
             var doctors = await _repository.GetAllDoctors();
-            return doctors.Select(doctor => doctor.ToDoctorDTO());
+            return doctors?.Select(doctor => doctor.ToDoctorDTO());
         }
 
         public async Task<DoctorDTO?> GetDoctorById(int id)

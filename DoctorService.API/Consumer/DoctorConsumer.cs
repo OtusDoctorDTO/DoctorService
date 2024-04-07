@@ -1,4 +1,5 @@
 ﻿using DoctorService.Domain.Services;
+using HelpersDTO.Doctor.DTO;
 using MassTransit;
 
 namespace DoctorService.API.Consumer
@@ -7,15 +8,15 @@ namespace DoctorService.API.Consumer
     {
         private readonly ILogger<DoctorConsumer> _logger;
         private readonly IDoctorService _service;
-        public async Task Consume(ILogger<DoctorConsumer> logger, IDoctorService service)
+        public DoctorConsumer(ILogger<DoctorConsumer> logger, IDoctorService service)
         {
             _logger = logger;
             _service = service;
         }
 
-        public Task Consume(ConsumeContext<GetDoctorsDTORequest> context)
+        public async Task Consume(ConsumeContext<GetDoctorsDTORequest> context)
         {
-            logger.LogInformation("Получен запрос GetDoctorsDTOResponse {message}", context.Message);
+            _logger.LogInformation("Получен запрос GetDoctorsDTOResponse {message}", context.Message);
             var result = new GetDoctorsDTOResponse()
             {
                 Guid = context.Message.Guid,
@@ -24,11 +25,11 @@ namespace DoctorService.API.Consumer
             };
             try
             {
-                result.Doctors = await service.GetAllDoctors();
+                var doctors = await _service.GetAllDoctors();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                logger.LogError(e, "При сохранении пациента произошла ошибка");
+                _logger.LogError(e, "При сохранении произошла ошибка");
             }
             await context.RespondAsync(result);
         }
