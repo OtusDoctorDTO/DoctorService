@@ -44,7 +44,7 @@ namespace DoctorService.API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Doctor>> GetDoctorById(int id)
+        public async Task<ActionResult<Doctor>> GetDoctorById(Guid id)
         {
             try
             {

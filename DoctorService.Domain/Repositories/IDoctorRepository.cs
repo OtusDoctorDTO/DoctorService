@@ -6,8 +6,8 @@ namespace DoctorService.Domain.Repositories
     {
         Task<Guid> AddDoctor(Doctor doctor);
         Task UpdateDoctor(Doctor doctor);
-        Task DeleteDoctor(int doctorId);
-        Task<Doctor?> GetDoctorById(int doctorId);
-        Task<List<Doctor>> GetAllDoctors();
+        Task DeleteDoctor(Guid doctorId);
+        Task<Doctor?> GetDoctorById(Guid doctorId);
+        Task<List<Doctor>> GetAll();
     }
 }

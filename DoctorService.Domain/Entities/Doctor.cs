@@ -21,5 +21,12 @@
         /// Специальность
         /// </summary>
         public string? Specialty { get; set; }
+
+        public Guid ContactId { get; set; }
+
+        /// <summary>
+        /// Контакты
+        /// </summary>
+        public virtual Contact Contact { get; set; }
     }
 }
