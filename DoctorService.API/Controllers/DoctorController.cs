@@ -69,7 +69,7 @@ namespace DoctorService.API.Controllers
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         [HttpPost("Add")]
-        public async Task<ActionResult<Guid>> GetDoctorById(NewDoctorDTO doctor)
+        public async Task<ActionResult<Guid>> AddNewDoctor(NewDoctorDTO doctor)
         {
             try
             {

@@ -33,10 +33,12 @@ namespace DoctorService.API
                 throw new ConfigurationException("Не удалось прочитать конфигурацию сервиса");
 
             services.AddControllers();
+            services.AddEndpointsApiExplorer();
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DoctorService API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
 
             services.AddMassTransit(x =>
@@ -78,13 +80,16 @@ namespace DoctorService.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseSwagger();
+            // Configure the HTTP request pipeline.
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DoctorService.API");
-            });
-
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger(c =>
+                {
+                    c.RouteTemplate = "/swagger/{documentName}/swagger.json";
+                });
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
+            app.UseHttpsRedirection();
+            app.UseAuthorization();
         }
     }
 }
