@@ -10,6 +10,7 @@ namespace DoctorService.Data.Context
 
         public DoctorDbContext(DbContextOptions<DoctorDbContext> options) : base(options)
         {
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
