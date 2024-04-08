@@ -18,12 +18,16 @@ namespace DoctorService.API.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Получить всех докторов
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DoctorDTO>>> GetAllDoctors()
         {
             try
             {
-                var doctors = await _doctorService.GetAllDoctors();
+                var doctors = await _doctorService.GetAll();
 
                 return Ok(doctors);
             }
@@ -34,17 +38,45 @@ namespace DoctorService.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Получить доктора по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Doctor>> GetDoctorById(int id)
         {
             try
             {
-                var doctor = await _doctorService.GetDoctorById(id);
+                var doctor = await _doctorService.GetById(id);
                 if (doctor == null)
                 {
                     return NotFound();
                 }
                 return Ok(doctor);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                return BadRequest("Произошла ошибка");
+            }
+        }
+
+        /// <summary>
+        /// Добавить доктора
+        /// </summary>
+        /// <param name="doctor">Доктор</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        [HttpPost("Add")]
+        public async Task<ActionResult<Guid>> GetDoctorById(NewDoctorDTO doctor)
+        {
+            try
+            {
+                if (doctor == null)
+                    throw new ArgumentNullException(nameof(doctor));
+                var result = await _doctorService.Add(doctor!);
+                return Ok(result);
             }
             catch (Exception e)
             {

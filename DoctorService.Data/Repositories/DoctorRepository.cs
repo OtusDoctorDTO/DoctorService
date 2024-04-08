@@ -14,10 +14,11 @@ namespace DoctorService.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task AddDoctor(Doctor doctor)
+        public async Task<Guid> AddDoctor(Doctor doctor)
         {
             _dbContext.Doctors.Add(doctor);
             await _dbContext.SaveChangesAsync();
+            return doctor.Id;
         }
 
         public async Task UpdateDoctor(Doctor doctor)

@@ -34,5 +34,17 @@ namespace DoctorService.API.Helpers
                 Specialty = doctor.Specialty
             };
         }
+
+        public static Doctor? ToDoctorDB(this NewDoctorDTO doctor)
+        {
+            if (doctor == null) return null;
+            return new Doctor()
+            {
+                FirstName = doctor.User?.FirstName,
+                LastName = doctor.User?.LastName,
+                MiddleName = doctor.User?.MiddleName,
+                Specialty = doctor.Specialty
+            };
+        }
     }
 }

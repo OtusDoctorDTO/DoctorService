@@ -1,13 +1,11 @@
-﻿using DoctorService.Domain.Entities;
-using HelpersDTO.Doctor.DTO;
-using HelpersDTO.Doctor.DTO.Models;
+﻿using HelpersDTO.Doctor.DTO.Models;
 
 namespace DoctorService.Domain.Services
 {
     public interface IDoctorService
     {
-        Task<IEnumerable<DoctorDTO>?> GetAllDoctors();
-        Task<DoctorDTO?> GetDoctorById(int id);
-        Task AddDoctor(DoctorDTO doctor);
+        Task<Guid> Add(NewDoctorDTO doctor);
+        Task<List<DoctorDTO?>?> GetAll();
+        Task<DoctorDTO?> GetById(int id);
     }
 }

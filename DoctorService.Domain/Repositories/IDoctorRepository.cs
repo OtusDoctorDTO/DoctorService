@@ -4,7 +4,7 @@ namespace DoctorService.Domain.Repositories
 {
     public interface IDoctorRepository
     {
-        Task AddDoctor(Doctor doctor);
+        Task<Guid> AddDoctor(Doctor doctor);
         Task UpdateDoctor(Doctor doctor);
         Task DeleteDoctor(int doctorId);
         Task<Doctor?> GetDoctorById(int doctorId);

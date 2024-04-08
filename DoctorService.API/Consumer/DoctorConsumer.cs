@@ -25,7 +25,7 @@ namespace DoctorService.API.Consumer
             };
             try
             {
-                var doctors = await _service.GetAllDoctors();
+                var doctors = await _service.GetAll();
             }
             catch (Exception e)
             {
