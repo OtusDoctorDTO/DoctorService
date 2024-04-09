@@ -14,10 +14,11 @@ namespace DoctorService.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task AddDoctor(Doctor doctor)
+        public async Task<Guid> AddDoctor(Doctor doctor)
         {
             _dbContext.Doctors.Add(doctor);
             await _dbContext.SaveChangesAsync();
+            return doctor.Id;
         }
 
         public async Task UpdateDoctor(Doctor doctor)
@@ -26,7 +27,7 @@ namespace DoctorService.Data.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteDoctor(int doctorId)
+        public async Task DeleteDoctor(Guid doctorId)
         {
             var doctor = await _dbContext.Doctors.FindAsync(doctorId);
             if (doctor != null)
@@ -36,14 +37,18 @@ namespace DoctorService.Data.Repositories
             }
         }
 
-        public async Task<Doctor?> GetDoctorById(int doctorId)
+        public async Task<Doctor?> GetDoctorById(Guid doctorId)
         {
-            return await _dbContext.Doctors.FindAsync(doctorId);
+            return await _dbContext.Doctors
+                .Include(d => d.Contact)
+                .FirstOrDefaultAsync(d => d.Id == doctorId);
         }
 
-        public async Task<List<Doctor>> GetAllDoctors()
+        public async Task<List<Doctor>> GetAll()
         {
-            return await _dbContext.Doctors.ToListAsync();
+            return await _dbContext.Doctors
+                .Include(d => d.Contact)
+                .ToListAsync();
         }
     }
 }

@@ -18,7 +18,13 @@ namespace DoctorService.API.Helpers
                     FirstName = doctor!.FirstName ?? "",
                     MiddleName = doctor!.MiddleName ?? ""
                 },
-                Specialty = doctor!.Specialty
+                Specialty = doctor!.Specialty,
+                 Contacts = new ContactDTO()
+                 {
+                     Email = doctor.Contact.Email,
+                     HomePhone = doctor.Contact.HomePhone,
+                     MobilePhone = doctor.Contact.MobilePhone
+                 }
             };
         }
 
@@ -31,7 +37,32 @@ namespace DoctorService.API.Helpers
                 FirstName = doctor.User?.FirstName,
                 LastName = doctor.User?.LastName,
                 MiddleName = doctor.User?.MiddleName,
-                Specialty = doctor.Specialty
+                Specialty = doctor.Specialty,
+                Contact = new Contact()
+                {
+                    Email = doctor.Contacts.Email,
+                    HomePhone = doctor.Contacts.HomePhone,
+                    MobilePhone = doctor.Contacts.MobilePhone
+                }
+
+            };
+        }
+
+        public static Doctor? ToDoctorDB(this NewDoctorDTO doctor)
+        {
+            if (doctor == null) return null;
+            return new Doctor()
+            {
+                FirstName = doctor.User?.FirstName,
+                LastName = doctor.User?.LastName,
+                MiddleName = doctor.User?.MiddleName,
+                Specialty = doctor.Specialty,
+                Contact = new Contact()
+                {
+                    Email = doctor.Contacts.Email,
+                    HomePhone = doctor.Contacts.HomePhone,
+                    MobilePhone = doctor.Contacts.MobilePhone
+                }
             };
         }
     }
