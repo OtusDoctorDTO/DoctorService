@@ -7,5 +7,6 @@ namespace DoctorService.Domain.Services
         Task<Guid> Add(NewDoctorDTO doctor);
         Task<List<DoctorDTO?>?> GetAll();
         Task<DoctorDTO?> GetById(Guid id);
+        Task<List<DoctorDTO>> GetByIds(Guid[] ids);
     }
 }

@@ -50,5 +50,14 @@ namespace DoctorService.Data.Repositories
                 .Include(d => d.Contact)
                 .ToListAsync();
         }
+
+        public async Task<List<Doctor>?> GetByIds(Guid[] ids)
+        {
+            return await _dbContext.Doctors
+                .Include(d => d.Contact)
+                .AsNoTracking()
+                .Where(doc=> ids.Contains(doc.Id))
+                .ToListAsync();
+        }
     }
 }
