@@ -28,6 +28,30 @@ namespace DoctorService.API.Helpers
             };
         }
 
+        public static FullInfoDoctorDTO? ToFullDoctorDTO(this Doctor doctor)
+        {
+            if (doctor == null) return null;
+            return new FullInfoDoctorDTO()
+            {
+                Id = doctor.Id,
+                UserInfo = new BaseUserDTO()
+                {
+                    LastName = doctor!.LastName ?? "",
+                    FirstName = doctor!.FirstName ?? "",
+                    MiddleName = doctor!.MiddleName ?? ""
+                },
+                // Cabinet = 
+                 StartWorkDate = doctor.StartDate,
+                  IntervalInfo = doctor.Schedules
+                  .ToDictionary(schedule => schedule.Date, schedule => new IntervalDTO() 
+                  { 
+                      ForTime = schedule.ForTime, 
+                      SinceTime = schedule.SinceTime
+                  } ?? null) ?? null,
+            };
+        }
+        
+
         public static Doctor? ToDoctorDB(this DoctorDTO doctor)
         {
             if (doctor == null) return null;
@@ -59,9 +83,9 @@ namespace DoctorService.API.Helpers
                 Specialty = doctor.Specialty,
                 Contact = new Contact()
                 {
-                    Email = doctor.Contacts.Email,
-                    HomePhone = doctor.Contacts.HomePhone,
-                    MobilePhone = doctor.Contacts.MobilePhone
+                    Email = doctor.Contacts?.Email ?? "",
+                    HomePhone = doctor.Contacts?.HomePhone ?? "",
+                    MobilePhone = doctor.Contacts?.MobilePhone ?? "",
                 }
             };
         }

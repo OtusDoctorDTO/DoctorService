@@ -29,6 +29,11 @@ namespace DoctorService.API.Services
             var doctor = await _repository.GetDoctorById(id);
             return doctor?.ToDoctorDTO();
         }
+        public async Task<FullInfoDoctorDTO?> GetFullInfoById(Guid id)
+        {
+            var doctor = await _repository.GetDoctorById(id);
+            return doctor?.ToFullDoctorDTO();
+        }
 
         public async Task<List<DoctorDTO>> GetByIds(Guid[] ids)
         {
