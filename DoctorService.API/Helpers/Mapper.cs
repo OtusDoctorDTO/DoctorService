@@ -42,7 +42,7 @@ namespace DoctorService.API.Helpers
                 },
                 // Cabinet = 
                  StartWorkDate = doctor.StartDate,
-                  IntervalInfo = doctor.Schedules
+                  IntervalInfo = doctor.Schedules?
                   .ToDictionary(schedule => schedule.Date, schedule => new IntervalDTO() 
                   { 
                       ForTime = schedule.ForTime, 

@@ -41,6 +41,7 @@ namespace DoctorService.Data.Repositories
         {
             return await _dbContext.Doctors
                 .Include(d => d.Contact)
+                .Include(d => d.Schedules)
                 .FirstOrDefaultAsync(d => d.Id == doctorId);
         }
 

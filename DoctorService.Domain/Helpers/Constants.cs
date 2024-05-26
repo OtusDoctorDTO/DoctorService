@@ -4,6 +4,7 @@ namespace DoctorService.Domain.Helpers
 {
     public static class Constants
     {
+        private static DateTime now = DateTime.Now;
         public static Contact[] Contacts = new Contact[]
         {
             new()
@@ -43,7 +44,6 @@ namespace DoctorService.Domain.Helpers
                 Email = "doctor5@gmail.com",
             }
         };
-
         public static Doctor[] Doctors = new Doctor[]
 {
             new()
@@ -53,6 +53,7 @@ namespace DoctorService.Domain.Helpers
                 FirstName = "Иван",
                 MiddleName = "Иванович",
                 Specialty = "Терапевт",
+                StartDate = DateTime.Now.AddYears(-2),
                 ContactId = Contacts[0].Id
             },
             new()
@@ -62,6 +63,7 @@ namespace DoctorService.Domain.Helpers
                 FirstName = "Петр",
                 MiddleName = "Петрович",
                 Specialty = "Терапевт",
+                StartDate = DateTime.Now.AddYears(-3),
                 ContactId = Contacts[1].Id
             },
             new()
@@ -71,6 +73,7 @@ namespace DoctorService.Domain.Helpers
                 FirstName = "Семен",
                 MiddleName = "Семенович",
                 Specialty = "Терапевт",
+                StartDate = DateTime.Now.AddYears(-4),
                 ContactId = Contacts[2].Id
             },
 
@@ -81,6 +84,7 @@ namespace DoctorService.Domain.Helpers
                 FirstName = "Иван",
                 MiddleName = "Петрович",
                 Specialty = "Терапевт",
+                StartDate = DateTime.Now.AddYears(-5),
                 ContactId = Contacts[3].Id
             },
             new()
@@ -90,8 +94,76 @@ namespace DoctorService.Domain.Helpers
                 FirstName = "Алексай",
                 MiddleName = "Иванович",
                 Specialty = "Терапевт",
+                StartDate = DateTime.Now.AddYears(-6),
                 ContactId = Contacts[4].Id
             }
 };
+        public static Schedule[] Schedules = new Schedule[]
+        {
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Date = new DateOnly(now.Year, now.Month, now.Day),
+                SinceTime = new TimeOnly(9,0),
+                ForTime = new TimeOnly(14,0),
+                DoctorId = Doctors[0].Id
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Date = new DateOnly(now.Year, now.Month, now.AddDays(1).Day),
+                SinceTime = new TimeOnly(9,0),
+                ForTime = new TimeOnly(14,0),
+                DoctorId = Doctors[1].Id
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Date = new DateOnly(now.Year, now.Month, now.AddDays(2).Day),
+                SinceTime = new TimeOnly(9,0),
+                ForTime = new TimeOnly(14,0),
+                DoctorId = Doctors[2].Id
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Date = new DateOnly(now.Year, now.Month, now.AddDays(3).Day),
+                SinceTime = new TimeOnly(9,0),
+                ForTime = new TimeOnly(14,0),
+                DoctorId = Doctors[3].Id
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Date = new DateOnly(now.Year, now.Month, now.AddDays(4).Day),
+                SinceTime = new TimeOnly(9,0),
+                ForTime = new TimeOnly(14,0),
+                DoctorId = Doctors[4].Id
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Date = new DateOnly(now.Year, now.Month, now.AddDays(5).Day),
+                SinceTime = new TimeOnly(9,0),
+                ForTime = new TimeOnly(14,0),
+                DoctorId = Doctors[0].Id
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Date = new DateOnly(now.Year, now.Month, now.AddDays(6).Day),
+                SinceTime = new TimeOnly(9,0),
+                ForTime = new TimeOnly(14,0),
+                DoctorId = Doctors[1].Id
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Date = new DateOnly(now.Year, now.Month, now.AddDays(7).Day),
+                SinceTime = new TimeOnly(9,0),
+                ForTime = new TimeOnly(14,0),
+                DoctorId = Doctors[2].Id
+            }
+        };
     }
 }

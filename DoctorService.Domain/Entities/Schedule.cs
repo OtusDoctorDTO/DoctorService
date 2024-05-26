@@ -23,6 +23,6 @@
         /// Время окончания
         /// </summary>
         public TimeOnly ForTime { get; set; }
-        public virtual Doctor Doctor { get; set; } = new();
+        public virtual Doctor? Doctor { get; set; }
     }
 }
