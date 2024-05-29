@@ -18,12 +18,12 @@ namespace DoctorService.API.Helpers
                     FirstName = doctor!.FirstName ?? "",
                     MiddleName = doctor!.MiddleName ?? ""
                 },
-                Specialty = doctor!.Specialty,
+                Specialty = doctor!.Specialty ?? "",
                  Contacts = new ContactDTO()
                  {
-                     Email = doctor.Contact.Email,
-                     HomePhone = doctor.Contact.HomePhone,
-                     MobilePhone = doctor.Contact.MobilePhone
+                     Email = doctor.Contact?.Email ?? "",
+                     HomePhone = doctor.Contact?.HomePhone?? "",
+                     MobilePhone = doctor.Contact!?.MobilePhone ?? ""
                  }
             };
         }

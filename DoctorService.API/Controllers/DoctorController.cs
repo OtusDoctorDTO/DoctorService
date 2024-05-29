@@ -108,8 +108,8 @@ namespace DoctorService.API.Controllers
         /// Получить подробную информацию по id
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetFullInfoById")]
-        public async Task<ActionResult<IEnumerable<DoctorDTO>>> GetDoctorsByIds(Guid id)
+        [HttpPost("GetFullInfoById")]
+        public async Task<ActionResult<IEnumerable<DoctorDTO>>> GetFullInfoByIdAsync(Guid id)
         {
             try
             {
