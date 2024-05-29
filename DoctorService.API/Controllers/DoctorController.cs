@@ -89,7 +89,7 @@ namespace DoctorService.API.Controllers
         /// Получить докторов по скиску id
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetDoctorsByIds")]
+        [HttpPost("GetDoctorsByIds")]
         public async Task<ActionResult<IEnumerable<DoctorDTO>>> GetDoctorsByIds(Guid[] guids)
         {
             try
