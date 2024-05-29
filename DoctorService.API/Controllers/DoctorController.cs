@@ -86,7 +86,7 @@ namespace DoctorService.API.Controllers
         }
 
         /// <summary>
-        /// Получить докторов по скиску id
+        /// Получить докторов по списку id
         /// </summary>
         /// <returns></returns>
         [HttpPost("GetDoctorsByIds")]
