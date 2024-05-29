@@ -19,12 +19,12 @@ namespace DoctorService.API.Helpers
                     MiddleName = doctor!.MiddleName ?? ""
                 },
                 Specialty = doctor!.Specialty ?? "",
-                 Contacts = new ContactDTO()
-                 {
-                     Email = doctor.Contact?.Email ?? "",
-                     HomePhone = doctor.Contact?.HomePhone?? "",
-                     MobilePhone = doctor.Contact!?.MobilePhone ?? ""
-                 }
+                Contacts = new ContactDTO()
+                {
+                    Email = doctor.Contact?.Email ?? "",
+                    HomePhone = doctor.Contact?.HomePhone ?? "",
+                    MobilePhone = doctor.Contact!?.MobilePhone ?? ""
+                }
             };
         }
 
@@ -40,17 +40,15 @@ namespace DoctorService.API.Helpers
                     FirstName = doctor!.FirstName ?? "",
                     MiddleName = doctor!.MiddleName ?? ""
                 },
-                // Cabinet = 
-                 StartWorkDate = doctor.StartDate,
-                  IntervalInfo = doctor.Schedules?
-                  .ToDictionary(schedule => schedule.Date, schedule => new IntervalDTO() 
-                  { 
-                      ForTime = schedule.ForTime, 
+                StartWorkDate = doctor.StartDate,
+                IntervalInfo = doctor.Schedules?
+                  .ToDictionary(schedule => schedule.Date, schedule => new IntervalDTO()
+                  {
+                      ForTime = schedule.ForTime,
                       SinceTime = schedule.SinceTime
                   } ?? null) ?? null,
             };
         }
-        
 
         public static Doctor? ToDoctorDB(this DoctorDTO doctor)
         {
