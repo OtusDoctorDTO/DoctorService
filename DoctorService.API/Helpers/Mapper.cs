@@ -18,13 +18,35 @@ namespace DoctorService.API.Helpers
                     FirstName = doctor!.FirstName ?? "",
                     MiddleName = doctor!.MiddleName ?? ""
                 },
-                Specialty = doctor!.Specialty,
-                 Contacts = new ContactDTO()
-                 {
-                     Email = doctor.Contact.Email,
-                     HomePhone = doctor.Contact.HomePhone,
-                     MobilePhone = doctor.Contact.MobilePhone
-                 }
+                Specialty = doctor!.Specialty ?? "",
+                Contacts = new ContactDTO()
+                {
+                    Email = doctor.Contact?.Email ?? "",
+                    HomePhone = doctor.Contact?.HomePhone ?? "",
+                    MobilePhone = doctor.Contact!?.MobilePhone ?? ""
+                }
+            };
+        }
+
+        public static FullInfoDoctorDTO? ToFullDoctorDTO(this Doctor doctor)
+        {
+            if (doctor == null) return null;
+            return new FullInfoDoctorDTO()
+            {
+                Id = doctor.Id,
+                UserInfo = new BaseUserDTO()
+                {
+                    LastName = doctor!.LastName ?? "",
+                    FirstName = doctor!.FirstName ?? "",
+                    MiddleName = doctor!.MiddleName ?? ""
+                },
+                StartWorkDate = doctor.StartDate,
+                IntervalInfo = doctor.Schedules?
+                  .ToDictionary(schedule => schedule.Date, schedule => new IntervalDTO()
+                  {
+                      ForTime = schedule.ForTime,
+                      SinceTime = schedule.SinceTime
+                  } ?? null) ?? null,
             };
         }
 
@@ -59,9 +81,9 @@ namespace DoctorService.API.Helpers
                 Specialty = doctor.Specialty,
                 Contact = new Contact()
                 {
-                    Email = doctor.Contacts.Email,
-                    HomePhone = doctor.Contacts.HomePhone,
-                    MobilePhone = doctor.Contacts.MobilePhone
+                    Email = doctor.Contacts?.Email ?? "",
+                    HomePhone = doctor.Contacts?.HomePhone ?? "",
+                    MobilePhone = doctor.Contacts?.MobilePhone ?? "",
                 }
             };
         }

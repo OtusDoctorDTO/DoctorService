@@ -41,6 +41,7 @@ namespace DoctorService.Data.Repositories
         {
             return await _dbContext.Doctors
                 .Include(d => d.Contact)
+                .Include(d => d.Schedules)
                 .FirstOrDefaultAsync(d => d.Id == doctorId);
         }
 
@@ -48,6 +49,15 @@ namespace DoctorService.Data.Repositories
         {
             return await _dbContext.Doctors
                 .Include(d => d.Contact)
+                .ToListAsync();
+        }
+
+        public async Task<List<Doctor>?> GetByIds(Guid[] ids)
+        {
+            return await _dbContext.Doctors
+                .Include(d => d.Contact)
+                .AsNoTracking()
+                .Where(doc=> ids.Contains(doc.Id))
                 .ToListAsync();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using DoctorService.Domain.Entities;
+using HelpersDTO.Doctor.DTO.Models;
 
 namespace DoctorService.Domain.Repositories
 {
@@ -9,5 +10,6 @@ namespace DoctorService.Domain.Repositories
         Task DeleteDoctor(Guid doctorId);
         Task<Doctor?> GetDoctorById(Guid doctorId);
         Task<List<Doctor>> GetAll();
+        Task<List<Doctor>?> GetByIds(Guid[] ids);
     }
 }

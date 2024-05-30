@@ -85,5 +85,42 @@ namespace DoctorService.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Получить докторов по списку id
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("GetDoctorsByIds")]
+        public async Task<ActionResult<IEnumerable<DoctorDTO>>> GetDoctorsByIds(Guid[] guids)
+        {
+            try
+            {
+                var doctors = await _doctorService.GetByIds(guids);
+                return Ok(doctors);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                return BadRequest("Произошла ошибка");
+            }
+        }
+
+        /// <summary>
+        /// Получить подробную информацию по id
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("GetFullInfoById")]
+        public async Task<ActionResult<IEnumerable<DoctorDTO>>> GetFullInfoByIdAsync(Guid id)
+        {
+            try
+            {
+                var doctor = await _doctorService.GetFullInfoById(id);
+                return Ok(doctor);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                return BadRequest("Произошла ошибка");
+            }
+        }
     }
 }

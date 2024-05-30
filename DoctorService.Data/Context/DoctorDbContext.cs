@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using DoctorService.Domain.Entities;
+﻿using DoctorService.Domain.Entities;
+using DoctorService.Domain.Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoctorService.Data.Context
 {
@@ -8,7 +9,7 @@ namespace DoctorService.Data.Context
     {
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        
+        public DbSet<Schedule> Schedules { get; set; } = null!;
 
         public DoctorDbContext(DbContextOptions<DoctorDbContext> options) : base(options)
         {
@@ -17,11 +18,9 @@ namespace DoctorService.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Doctor>()
-                .HasOne(e => e.Contact)
-                .WithOne(e => e.Doctor)
-                .HasForeignKey<Doctor>(e => e.ContactId)
-                .IsRequired();
+            modelBuilder.Entity<Contact>().HasData(Constants.Contacts);
+            modelBuilder.Entity<Doctor>().HasData(Constants.Doctors);
+            modelBuilder.Entity<Schedule>().HasData(Constants.Schedules);
         }
     }
 }
